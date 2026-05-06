@@ -4,6 +4,8 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const scrapeRoutes = require("./routes/scrapeRoutes");
 const authRoutes = require("./routes/authRoutes");
+const storyRoutes = require("./routes/storyRoutes");
+const userRoutes = require("./routes/userRoutes");
 const scrapeHackerNews = require("./scraper/hackerNewsScraper");
 
 dotenv.config();
@@ -25,6 +27,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/scrape", scrapeRoutes);
+app.use("/api/stories", storyRoutes);
+app.use("/api/users", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
