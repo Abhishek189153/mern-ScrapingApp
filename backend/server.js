@@ -2,10 +2,14 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const scrapeRoutes = require("./routes/scrapeRoutes");
+const scrapeHackerNews = require("./scraper/hackerNewsScraper");
 
 dotenv.config();
 
-connectDB();
+connectDB().then(async () => {
+  await scrapeHackerNews();
+});
 
 const app = express();
 
@@ -17,6 +21,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
+
+app.use("/api/scrape", scrapeRoutes);
 
 const PORT = process.env.PORT || 5000;
 
